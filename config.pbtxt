@@ -1,0 +1,50 @@
+platform: "tensorrt_plan"
+max_batch_size: 4
+
+optimization {
+  cuda { 
+    output_copy_stream: true
+    busy_wait_events: true 
+  }
+}
+
+input [
+    {
+        name: "segment_ids"
+        data_type: TYPE_INT32
+        dims: 64
+    },
+    {
+        name: "input_ids"
+        data_type: TYPE_INT32
+        dims: 64
+    },
+    {
+        name: "input_mask"
+        data_type: TYPE_INT32
+        dims: 64
+    }
+    ]
+
+output [
+    {
+        name: "pooled_embedding"
+        data_type: TYPE_FP32
+        dims: [ 768, 1, 1 ]
+    }
+]
+
+dynamic_batching {
+    preferred_batch_size: [ 2, 4 ]
+    max_queue_delay_microseconds: 50
+  }
+
+instance_group [
+    {
+        count: 1
+        kind: KIND_GPU
+        profile: "0"
+        profile: "1"
+        profile: "2"
+    }
+]
