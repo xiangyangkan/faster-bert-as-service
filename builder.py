@@ -34,10 +34,10 @@ trt_version = [int(n) for n in trt.__version__.split('.')]
 
 GPU_MODEL = os.environ.get("GPU_MODEL")
 DLL_FILE = {
+    "A100": "./dll/libnvinfer_plugin_a100-sxm4.so",
+    "A10": "./dll/libnvinfer_plugin_a10.so",
     "V100": "./dll/libnvinfer_plugin_v100-sxm2.so",
     "T4": "./dll/libnvinfer_plugin_t4.so",
-    "A100": "./dll/libnvinfer_plugin_a100-sxm4.so",
-    "850M": "./dll/libnvinfer_plugin_gtx850m.so",
     "1050": "./dll/libnvinfer_plugin_gtx1050.so",
 }
 
